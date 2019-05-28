@@ -21,89 +21,97 @@
       <div class="row">
         <div class="col-sm-12">        
         
+        <!-- tabla detalles Petición -->
         <table class="table table-bordered">
-        <tr>
-          <th>Solicitud:</th>
-          <td>{{$petition->nombre}}</td>
-        </tr>
-        <tr>
-          <th>Estado:</th>
-          <td style="font-size:110%;">
-               @if($petition->estado == 'Pendiente')
-                  <span class="label label-warning">{{$petition->estado}}</span>
-               @endif
-               @if($petition->estado == 'Aprobada')
-                  <span class="label label-success">{{$petition->estado}}</span>
-               @endif
-               @if($petition->estado == 'Rechazada')
-                  <span class="label label-danger">{{$petition->estado}}</span>
-               @endif
-               @if($petition->estado == 'Revisión')
-                  <span class="label label-warning">{{$petition->estado}}</span>
-               @endif
-               @if($petition->estado == 'Finalizada')
-                  <span class="label label-primary">{{$petition->estado}}</span>
-               @endif
-          </td>
-        </tr>
-        <tr>
-          <th>Solicitud realizada por:</th>
-          <td>{{$petition->user->name}}</td>
-        </tr>
-        <tr>
-          <th>NIT/CC:</th>
-          <td>{{$petition->user->cc}}</td>
-        </tr>
-        <tr>
-          <th>Télefono:</th>
-          <td>{{$petition->user->telefono}}</td>
-        </tr>
-        <tr>
-          <th>Fecha de solicitud:</th>
-          <td>{{$petition->created_at}}</td>
-        </tr>
-          @if($petition->f_apartada != null)
-          <tr>
-            <th>Fecha apartar hasta:</th>
-            <td>{{$petition->f_apartada}}</td>
-          </tr>
-          @endif
-        <tr>
-          <th>Fecha devoluación estimada:</th>
-          <td>{{$petition->f_devolucion}}</td>
-        </tr>
-        <tr>
-          <th>Justificación de la salida:</th>
-          <td>{{$petition->justificacion}}</td>
-        </tr>
+            <tr>
+              <th>Solicitud:</th>
+              <td>{{$petition->nombre}}</td>
+            </tr>
+            <tr>
+              <th>Estado:</th>
+              <td style="font-size:110%;">
+                  @if($petition->estado == 'Pendiente')
+                      <span class="label label-warning">{{$petition->estado}}</span>
+                  @endif
+                  @if($petition->estado == 'Aprobada')
+                      <span class="label label-success">{{$petition->estado}}</span>
+                  @endif
+                  @if($petition->estado == 'Rechazada')
+                      <span class="label label-danger">{{$petition->estado}}</span>
+                  @endif
+                  @if($petition->estado == 'Revisión')
+                      <span class="label label-warning">{{$petition->estado}}</span>
+                  @endif
+                  @if($petition->estado == 'Finalizada')
+                      <span class="label label-primary">{{$petition->estado}}</span>
+                  @endif
+              </td>
+            </tr>
+            <tr>
+              <th>Solicitud realizada por:</th>
+              <td>{{$petition->user->name}}</td>
+            </tr>
+            <tr>
+              <th>NIT/CC:</th>
+              <td>{{$petition->user->cc}}</td>
+            </tr>
+            <tr>
+              <th>Télefono:</th>
+              <td>{{$petition->user->telefono}}</td>
+            </tr>
+            <tr>
+              <th>Fecha de solicitud:</th>
+              <td>{{$petition->created_at}}</td>
+            </tr>
+              @if($petition->f_apartada != null)
+              <tr>
+                <th>Fecha apartar hasta:</th>
+                <td>{{$petition->f_apartada}}</td>
+              </tr>
+              @endif
+            <tr>
+              <th>Fecha devoluación estimada:</th>
+              <td>{{$petition->f_devolucion}}</td>
+            </tr>
+            <tr>
+              <th>Justificación de la salida:</th>
+              <td>{{$petition->justificacion}}</td>
+            </tr>
       </table>
       
-       
+                          <!-- tabla detalles Herramienta -->
+
           <table class="table table-bordered">
             <tr >
                 <th class="text-center" width="10%">Elemento</th>
                 <th class="text-center" width="10%">Imagen</th>
                 <th class="text-center" width="10%">Cantidad solicitada</th>
                 <th class="text-center" width="10%">Cantidad aprobada</th>
-                @if($petition->estado == 'Pendiente' and Auth::user()->tipo == 'Admin')
-                <th class="text-center" width="10%">Cantidad disponible</th>
-                @endif
+
+                  @if($petition->estado == 'Pendiente' and Auth::user()->tipo == 'Admin')
+                    <th class="text-center" width="10%">Cantidad disponible</th>
+                  @endif
+
                 @if($petition->estado == 'Aprobada' and Auth::user()->tipo != 'Admin' and $petition->f_apartada == null)
-                <th class="text-center" width="10%">Devolver elemento</th>
+                  <th class="text-center" width="10%">Devolver elemento</th>
                 @endif
+
                 @if($petition->estado == 'Aprobada' and Auth::user()->tipo != 'Admin' and $petition->recogida == '1')
-                <th class="text-center" width="10%">Devolver elemento</th>
+                  <th class="text-center" width="10%">Devolver elemento</th>
                 @endif
+
                 @if($petition->estado != 'Pendiente' and Auth::user()->tipo == 'Admin')
-                <th class="text-center" width="10%">Elementos devueltos</th>
+                  <th class="text-center" width="10%">Elementos devueltos</th>
                 @endif
+
             </tr>
             <tbody>
+        
             @php ($cont = 0)
             @php ($cant_total_devuelto = 0)
              @foreach ($petitiontools as $petitiontool)
                 
-            <tr align="center">
+            <tr aling="center">
                 <td>{{$petitiontool->tool->nombre}}</td>
                 <td><img src={{$petitiontool->tool->imagen}} width="80" height="80" /></img></td>
                 <td>{{$petitiontool->cantidad}}</td>

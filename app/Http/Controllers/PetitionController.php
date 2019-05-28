@@ -70,7 +70,7 @@ class PetitionController extends Controller
         //   $petition->justificacion
         //   ));
         
-        // return redirect ('/mispeticiones/');
+        return redirect ('/mispeticiones/');
 
     }
 

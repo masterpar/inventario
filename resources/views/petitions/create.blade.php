@@ -10,11 +10,8 @@
                 <div class="panel-body">
                     {!!Form::open(['route'=>'petition.store', 'method'=>'POST' , 'class' =>'form-horizontal'])!!} 
 
-                    @include('petitions.form')          
-
+                    @include('petitions.form')       
                        
-
-                        
 
                          <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
