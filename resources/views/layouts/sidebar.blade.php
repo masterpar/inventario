@@ -20,7 +20,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MENÚ</li>
         @if(Auth::user()->tipo == 'Admin')
-        <li class="treeview">
+        <li class="treeview {{ ! Route::is('user.index')  ?: 'active'  }}">
           <a href="#">
             <i class="fa fa-users"></i> <span>Usuarios</span>
             <span class="pull-right-container">
@@ -36,10 +36,10 @@
         </li>
         @endif
 
-        
-        <li class="treeview">
+
+        <li class="treeview {{ ! Route::is('tools.index')  ?: 'active'  }}" >
           <a href="#">
-            <i class="fa fa-gavel"></i> <span>Elementos</span>
+            <i class="fa fa-gavel" ></i> <span>Herramientas</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -52,7 +52,7 @@
           </ul>
         </li>
         
-        <li class="treeview">
+        <li class="treeview {{ ! Route::is('petitions.show')  ?: 'active'  }}">
           <a href="#">
             <i class="fa fa-tasks"></i> <span>Solicitudes</span>
             <span class="pull-right-container">

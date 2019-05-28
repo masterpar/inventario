@@ -9,7 +9,7 @@
 
    <div class="container">
     <div class="row ">
-      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto ">
         <div class="card card-signin my-5 fadeInDown">
           <div class="card-body fadeIn first">
 					  <img class="card-img-top" src="{{asset('img/ceind.jpg')}}" id="img" alt="Card image cap">
@@ -41,7 +41,6 @@
                 <label class="custom-control-label" for="customCheck1">Recordar Contraseña</label>
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Ingresar</button>
-              <hr class="my-4">
             </form>
           </div>
         </div>

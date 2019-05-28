@@ -20,7 +20,7 @@
           </div>
           <div class="col-sm-6">
       <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
-            <a class="btn btn-info add-new" href="{{ route('tool.create') }}"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+            <a class="btn btn-primary add-new" href="{{ route('tool.create') }}"><i class="fa fa-plus"></i> <span>Agregar</span></a>
             <a href="#deleteEmployeeModal" class="btn btn-danger eliminacion" data-toggle="modal"><i class="fa fa-trash" ></i> <span>Eliminar</span></a>
           </div>
                 </div>

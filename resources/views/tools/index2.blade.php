@@ -1,7 +1,6 @@
 @extends('tools.base')
 @section('action-content')
 
-      
 
 <!-- Main content -->
     <section class="content">
@@ -31,7 +30,37 @@
   </div>
 </div>
 
-  
+  <div class="container">
+	<div class="row" id="ads">
+    @foreach ($tools as $tool)
+    <!-- Category Card -->
+    <div class="col-md-3">
+        <div class="card rounded m-5">
+            <div class="card-image">
+                <span class="card-notify-badge">{{$tool->Category->nombre}} </span>
+                <img class="img-fluid " src="{{$tool->imagen}}" width="90" height="90" alt="Alternate Text" />
+            </div>
+            <div class="card-image-overlay m-auto text-center">
+                <span class="card-detail-badge">Cantidad Disponible: {{$tool->cantidad_disponible}}</span>
+            </div>
+            <div class="card-body text-center">
+            <hr>
+                <div class="ad-title m-auto">
+                    <h5 >{{$tool->nombre}} </h5>
+                </div>
+                <hr>
+                <a class="ad-btn-ver" href="{{ route('tool.show', ['id' => $tool->id]) }}"  data-toggle="tooltip" data-placement="top" title="Ver más">
+                        <i class="fa fa-eye fa-lg"></i>
+                        </a> 
+                  <a class="ad-btn-necesito" href="{{ route('cart-add', ['id' => $tool->id]) }}" class="btn btn-info btn-md margin" data-toggle="tooltip" data-placement="top" title="Lo necesito">
+                        <i class="fa fa-cart-plus fa-lg"></i>
+                        </a>
+            </div>
+        </div>
+    </div>
+        @endforeach
+  </div>
+</div> 
 
       <!-- Info boxes -->
       <div class="row">

@@ -19,8 +19,7 @@
 
     <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
       <div class="row">
-        <div class="col-sm-12">
-        
+        <div class="col-sm-12">        
         
         <table class="table table-bordered">
         <tr>
@@ -45,7 +44,6 @@
                @if($petition->estado == 'Finalizada')
                   <span class="label label-primary">{{$petition->estado}}</span>
                @endif
-              
           </td>
         </tr>
         <tr>
@@ -64,12 +62,12 @@
           <th>Fecha de solicitud:</th>
           <td>{{$petition->created_at}}</td>
         </tr>
-        @if($petition->f_apartada != null)
-        <tr>
-          <th>Fecha apartar hasta:</th>
-          <td>{{$petition->f_apartada}}</td>
-        </tr>
-        @endif
+          @if($petition->f_apartada != null)
+          <tr>
+            <th>Fecha apartar hasta:</th>
+            <td>{{$petition->f_apartada}}</td>
+          </tr>
+          @endif
         <tr>
           <th>Fecha devoluación estimada:</th>
           <td>{{$petition->f_devolucion}}</td>
