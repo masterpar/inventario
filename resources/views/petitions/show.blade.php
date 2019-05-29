@@ -79,7 +79,6 @@
             </tr>
       </table>
       
-                          <!-- tabla detalles Herramienta -->
 
           <table class="table table-bordered">
             <tr >
@@ -111,7 +110,7 @@
             @php ($cant_total_devuelto = 0)
              @foreach ($petitiontools as $petitiontool)
                 
-            <tr aling="center">
+            <tr align="center">
                 <td>{{$petitiontool->tool->nombre}}</td>
                 <td><img src={{$petitiontool->tool->imagen}} width="80" height="80" /></img></td>
                 <td>{{$petitiontool->cantidad}}</td>
@@ -143,18 +142,20 @@
                 <td>{{$petitiontool->tool->cantidad_disponible}}</td>
 
                 @endif
+
+
                 @if($petition->estado == 'Aprobada' and Auth::user()->tipo != 'Admin' and $petition->f_apartada == null)
                 <td> @php ($cant_total_devuelto = $cant_total_devuelto + $petitiontool->cantidad_devuelta)
                       <input 
                               type="number"
-                              min="{{ $petitiontool->cantidad_devuelta }}"
+                              min="0"
                               max="{{$petitiontool->cantidad_aprobada}}"
-                              value="{{ $petitiontool->cantidad_devuelta }}"
+                              value="{{ $petitiontool->cantidad_aprobada }}"
                               id="product_{{ $petitiontool->tool->id }}"
                               required
                           >
                           <a 
-                              href="#" 
+                              href="" 
                               class="btn btn-warning btn-update-tool-dev btn-rounded "
                               data-href="{{ route('tool-dev',$petition->id ) }}"
                               data-id = "{{ $petitiontool->tool->id }}"
@@ -163,6 +164,7 @@
                           </a
                 </td>
                 @endif
+
                 @if($petition->estado == 'Aprobada' and Auth::user()->tipo != 'Admin' and $petition->recogida == '1')
                 <td>
                       <input 

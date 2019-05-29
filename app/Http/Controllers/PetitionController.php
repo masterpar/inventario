@@ -103,10 +103,10 @@ class PetitionController extends Controller
         
         // $petition->user->email) cambiar mi correo para que le llegue un correo al usuario diciendole que la petición fue aprobada
         
-        Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRespuesta(
-           $petition->nombre,
-          $respuesta
-          ));
+        // Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRespuesta(
+        //    $petition->nombre,
+        //   $respuesta
+        //   ));
 
 
 
@@ -131,10 +131,10 @@ class PetitionController extends Controller
     $petition->save();
     // $petition->user->email) cambiar mi correo para que le llegue un correo al usuario diciendole que la petición fue aprobada
     $respuesta = "Aprobada";
-        Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRespuesta(
-           $petition->nombre,
-          $respuesta
-          ));
+        // Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRespuesta(
+        //    $petition->nombre,
+        //   $respuesta
+        //   ));
 
       return redirect ('/aprobadas/');
     }
@@ -201,24 +201,29 @@ class PetitionController extends Controller
     {
         $petition = Petition::find($id_petition);
         $petitiontool= $petition->petition_tools()->where('tool_id',$tool_id)->get()->first();
-        $petitiontool->cantidad_devuelta=$cantidad_dev;
+        $petitiontool->cantidad_devuelta = $cantidad_dev;
+        $petitiontool->cantidad_aprobada = $petitiontool->cantidad_aprobada - $cantidad_dev;
         $petitiontool->save();
 
         $tool = Tool::find($tool_id);
-
-        $tool->cantidad_disponible = $tool->cantidad_disponible + $cantidad_dev;
-      
-       $tool->save();
+        $tool->cantidad_disponible = $tool->cantidad_disponible + $cantidad_dev;      
+        $tool->save();
        //correo donde van a llegar
-       Mail::to('juan.cuero@unillanos.edu.co')->send(new MailElementoDev(
-          $request->user()->name,
-          $tool->nombre,
-          $petition->nombre,
-          $cantidad_dev
-          ));
+    //    Mail::to('juan.cuero@unillanos.edu.co')->send(new MailElementoDev(
+    //       $request->user()->name,
+    //       $tool->nombre,
+    //       $petition->nombre,
+    //       $cantidad_dev
+    //       ));
 
-
-        
+    #TODO: ÚLTIMO RECURSO
+        if ($tool->cantidad_disponible == 0) {
+            $petition->estado = "Revisión";
+            $petition->f_devolucion_real = Carbon::now()->format('Y-m-d');
+            $petition->save();
+            Session::flash('message','Petición terminada correctamente. El administrador revisará los elementos.');
+            return redirect ('/mispeticiones/');
+        }
         return redirect ('/petition/'.$id_petition);
     }
 
@@ -239,10 +244,10 @@ class PetitionController extends Controller
         $petition->estado = "Revisión";
         $petition->f_devolucion_real = Carbon::now()->format('Y-m-d');
         $petition->save();
-       Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRevision(
-          $request->user()->name,
-          $petition->nombre
-          ));
+    //    Mail::to('juan.cuero@unillanos.edu.co')->send(new MailRevision(
+    //       $request->user()->name,
+    //       $petition->nombre
+    //       ));
 
         Session::flash('message','Petición terminada correctamente. El administrador revisará los elementos.');
         return redirect ('/mispeticiones/');
@@ -318,6 +323,13 @@ class PetitionController extends Controller
      }
         $petition->save();
         return redirect ('/petition/'.$petition->id);
+    }
+
+    public function destroy($id)
+    {
+        $petition = Petition::findOrFail($id);
+        $petition->delete();
+        return redirect('/vencidas'); 
     }
 
     public function pdf($id)
