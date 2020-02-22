@@ -28,25 +28,18 @@
               <td>{{$petition->nombre}}</td>
             </tr>
             <tr>
+                                                 {{-- Estado petición --}}
               <th>Estado:</th>
-              <td style="font-size:110%;">
-                  @if($petition->estado == 'Pendiente')
-                      <span class="label label-warning">{{$petition->estado}}</span>
-                  @endif
-                  @if($petition->estado == 'Aprobada')
-                      <span class="label label-success">{{$petition->estado}}</span>
-                  @endif
-                  @if($petition->estado == 'Rechazada')
-                      <span class="label label-danger">{{$petition->estado}}</span>
-                  @endif
-                  @if($petition->estado == 'Revisión')
-                      <span class="label label-warning">{{$petition->estado}}</span>
-                  @endif
-                  @if($petition->estado == 'Finalizada')
-                      <span class="label label-primary">{{$petition->estado}}</span>
+              <td style="font-size:130%;">
+                  @if($petition->estado == 'Pendiente') <span class="label label-warning">Pendiente</span>
+                  @elseif($petition->estado == 'Aprobada') <span class="label label-success">Aprobada</span>
+                  @elseif($petition->estado == 'Rechazada') <span class="label label-danger">Rechazada</span>
+                  @elseif($petition->estado == 'Revisión')  <span class="label label-warning">Revisión</span>
+                  @elseif($petition->estado == 'Finalizada') <span class="label label-primary">Finalizada</span>
                   @endif
               </td>
             </tr>
+                                                 {{-- Datos petición --}}
             <tr>
               <th>Solicitud realizada por:</th>
               <td>{{$petition->user->name}}</td>
@@ -78,8 +71,8 @@
               <td>{{$petition->justificacion}}</td>
             </tr>
       </table>
-      
 
+                                              {{-- tabla herramienta --}}
           <table class="table table-bordered">
             <tr >
                 <th class="text-center" width="10%">Elemento</th>
@@ -314,11 +307,13 @@
         
       </div>
       @endif
-    </p>
+
     </div>
   </div>
   <!-- /.box-body -->
 </div>
+
+{{--------------------------------MODALES-----------------------------}}
 
 <div id="confirmarModal" class="modal fade">
     <div class="modal-dialog">

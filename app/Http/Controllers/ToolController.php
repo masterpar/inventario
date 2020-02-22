@@ -17,12 +17,7 @@ use App\Mail\MailEntrega;
 use DB;
 class ToolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-      
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -33,7 +28,6 @@ class ToolController extends Controller
 
     public function index(Request $request)
     {
-        // $categories = Category::pluck('nombre','id');
         $categories = Category::pluck('nombre');
         if ($request->user()->tipo =='Admin') {
           $tools = Tool::nombre($request->get('nombre'))->latest()->paginate(5);
@@ -43,23 +37,12 @@ class ToolController extends Controller
         return view('tools.index2',compact('tools','categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categories = Category::pluck('nombre','id');
         return view('tools.create',compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -90,23 +73,12 @@ class ToolController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Tool  $tool
-     * @return \Illuminate\Http\Response
-     */
     public function show(Tool $tool)
     {
         return view('tools.show',compact('tool')) ;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Tool  $tool
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Tool $tool)
     {
         $categories = Category::pluck('nombre','id');
@@ -139,13 +111,7 @@ class ToolController extends Controller
         return redirect('/tool/');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Tool  $tool
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Tool $tool)
+      public function destroy(Tool $tool)
     {
         $tool->delete();
 
@@ -162,7 +128,6 @@ class ToolController extends Controller
 
     public function guardar_solicitud(Request $request)
     {
-        
 
         $tool = Tool::find($request['tool_id']);
         $id_user=$request->user()->id;
@@ -180,15 +145,7 @@ class ToolController extends Controller
         $data['f_solicitud'] = $x->pivot->created_at;
         $data['f_devolucion'] = $f_devolucion;
 
-
-        //send email
-        /*
-        Mail::send('emails.nueva_solicitud',$data, function($message){
-            $message->to('juan.cuero@unillanos.edu.co','juan cuero')->subject('Nueva solicitud de elemento');
-        });*/
-
-
-         Mail::to('juan.cuero@unillanos.edu.co')->send(new MailSolicitud(
+        Mail::to('juan.cuero@unillanos.edu.co')->send(new MailSolicitud(
           $user->name,
           $user->email,
           $tool->nombre,
@@ -205,16 +162,12 @@ class ToolController extends Controller
     {
           
         $users = User::whereDate('created_at', '=', Carbon::now()->format('Y-m-d'))->get();
-
         $tools = Tool::all();
         /*
         foreach ($tools as $tool) {
           $x = $tool->users()->whereDate('f_devolucion', '=', Carbon::now()->format('Y-m-d'))->get();
           echo $x;
         }*/
-        
-        
-
 
         $tools = $request->user()->tools()
                                 ->wherePivot('aprobada','=',"Aprobada")
@@ -228,17 +181,17 @@ class ToolController extends Controller
     {
         
         $tool = Tool::find($request['tool_id']);
-        $x = $tool->users()
+        $entrega = $tool->users()
                 ->wherePivot('id', $request['id'])
                 ->first();
-        $x->pivot->aprobada = "Entregado";
-        $x->pivot->save();
+        $entrega->pivot->aprobada = "Entregado";
+        $entrega->pivot->save();
 
-        Mail::to('juan.cuero@unillanos.edu.co')->send(new MailEntrega(
+        Mail::to('camilo.c.carranza@gmail.com')->send(new MailEntrega(
           $request->user()->name,
           $tool->nombre,
-          $x->pivot->updated_at,
-          $x->pivot->observacion
+          $entrega->pivot->updated_at,
+          $entrega->pivot->observacion
           ));
         
         return redirect ('/solicitados/');

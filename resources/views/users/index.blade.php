@@ -27,7 +27,7 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}" id="token">
           <div class="col-sm-6">
 
-            <a class="btn btn-info " href="{{ route('user.create') }}"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+            <a class="btn btn-success " href="{{ route('user.create') }}"><i class="fa fa-plus"></i> <span>Agregar</span></a>
             <a href="#deleteEmployeeModal" class="btn btn-danger eliminacion" data-toggle="modal"><i class="fa fa-trash" ></i> <span>Eliminar</span></a>
           </div>
                 </div>

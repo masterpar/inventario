@@ -12,11 +12,11 @@
             <div class="row">
                 <div class="col-xs-12">
                 	
-     <table class="table table-bordered">
+     <table class="table table-bordered ">
       <tr ALIGN=CENTER>
-        <th rowspan="4"><img src="{{ base_path() }}/public/img/ceind.jpg"  width="150" height="150"/></th>
-        <th >CENTRO DE INVESTIGACIÓN Y DESARROLLO TECNOLÓGICO DE LOS LLANOS</th>
-        <th COLSPAN=2>Código FO-GOP-03</th>
+        <th rowspan="4" class="text-center"><img src="{{ base_path() }}/public/img/ceind.jpg"  width="150" height="150"/></th>
+        <th class="text-center">CENTRO DE INVESTIGACIÓN Y DESARROLLO TECNOLÓGICO DE LOS LLANOS</th>
+        <th COLSPAN=2 class="text-center">Código FO-GOP-03</th>
       </tr>
       <tr ALIGN=CENTER>
         <td>PROCESO DE GESTIÓN OPERATIVA</td>

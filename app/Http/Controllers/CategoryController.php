@@ -53,26 +53,20 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryCreateRequest $request)
-    {
-        /*
-        $category = Category::create([
-            'nombre' => $request['nombre'],
-        ]);
-        */
-        if($request->ajax()){
-        
-         $category = Category::create([
-            'nombre' => $request['nombre'],
-        ]);
-            
-          
+    {        
+        if ($error->fails()) {
+            return response()->json(['errors' => $error->errors()->firts()]);
+        }
 
+        if($request->ajax()){        
+            $category = Category::create([
+                'nombre' => $request['nombre'],
+            ]);        
+            
             return response()->json([
                 "mensaje" => "creado"
             ]);
-        }
-
-       
+                            }       
     }
 
     /**

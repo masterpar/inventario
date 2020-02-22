@@ -25,7 +25,7 @@ class PetitionController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin')->except(['create','store','mispeticiones','show','update_devuelta','devolver','comentar','pedirele']);
+        $this->middleware('admin')->except(['create','store','mispeticiones','show','update_devuelta','devolver','comentar','pedirele','pdf']);
         
     }
 
@@ -217,7 +217,8 @@ class PetitionController extends Controller
     //       ));
 
     #TODO: ÚLTIMO RECURSO
-        if ($tool->cantidad_disponible == 0) {
+
+        if ($petitiontool->cantidad_aprobada == 0) {
             $petition->estado = "Revisión";
             $petition->f_devolucion_real = Carbon::now()->format('Y-m-d');
             $petition->save();

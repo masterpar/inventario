@@ -9,7 +9,6 @@ function manageData() {
         type: 'GET',
         url: '/categoryGetAll',
         success:function(data){
-                   console.log("ya" +data);
                    manageRow(data);
                 },
         error:function(msj){
@@ -120,12 +119,13 @@ $(document).on("click", ".insert", function(){
                   toastr.success('categoría correctamente');
                   manageData();
                 },
-                error:function(msj){
-                    toastr.error('Error al ingresar la categoría');
+                error:function(){
+                    toastr.error('error al crear la categoría ');
                 }
 
             });
         }
+
         //para editar
         else {
             var route = "/category/"+id+"";

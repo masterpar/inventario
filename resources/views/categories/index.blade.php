@@ -23,7 +23,7 @@
           </div>
           <div class="col-sm-6">
 
-            <a class="btn btn-info add-new" data-toggle="modal" data-target="#add_data_Modal"><i class="fa fa-plus"></i> <span>Agregar</span></a>
+            <a class="btn btn-success add-new" data-toggle="modal" data-target="#add_data_Modal"><i class="fa fa-plus"></i> <span>Agregar</span></a>
             <a href="#deleteEmployeeModal" class="btn btn-danger eliminacion" data-toggle="modal"><i class="fa fa-trash" ></i> <span>Eliminar</span></a>
           </div>
                 </div>

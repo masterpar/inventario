@@ -16,7 +16,7 @@ class CartController extends Controller
         
     }
 
-    // Shoe cart
+    // Show cart
 
     public function show()
     {
@@ -58,7 +58,7 @@ class CartController extends Controller
 
         $cart = \Session::get('cart');
         if ($cantidad > $tool->cantidad_disponible) {
-            \Session::flash('message-error','Error en la cantidad');
+            \Session::flash('message-error','Cantidad no disponible');
              return redirect()->route('cart-show');
         }
         $cart[$tool->id]->cantidad = $cantidad;
